@@ -4,6 +4,7 @@
 import pydot
 from flask_cors import CORS, cross_origin
 from flask import Flask, jsonify, request
+import LPP
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -15,7 +16,7 @@ def home():
     if request.method == 'POST':
 
         data = request.get_json()
-        graph = pydot.Dot("my_graph", graph_type="graph", bgcolor="transparent")
+        graph = pydot.Dot("my_graph", graph_type="graph", bgcolor="transparent", splines="line")
 
         for vname, vvalue in data["vertices"].items():
             graph.add_node(pydot.Node(vname, shape="circle", label="", xlabel=f"({vname}, {vvalue})"))
@@ -49,7 +50,7 @@ def home():
     #     6[shape=circle,style=wedged,fillcolor="blue;0.1:green;0.1:black;0.1:red:white;0.4",label="",xlabel="Hello"];
     # }"""
 
-
+        print(data["edges"])
         output_graphviz_svg = graph.create_svg()
         return output_graphviz_svg, 200
 
