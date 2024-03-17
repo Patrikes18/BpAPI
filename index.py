@@ -51,6 +51,8 @@ def home():
     # }"""
 
         print(data["edges"])
+        # output_graphviz_svg = pydot.graph_from_dot_data(dot_string)
+        # graph = output_graphviz_svg[0]
         output_graphviz_svg = graph.create_svg()
         return output_graphviz_svg, 200
 
