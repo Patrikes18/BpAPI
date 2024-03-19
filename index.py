@@ -50,7 +50,7 @@ def home():
     #     6[shape=circle,style=wedged,fillcolor="blue;0.1:green;0.1:black;0.1:red:white;0.4",label="",xlabel="Hello"];
     # }"""
 
-        print(data["edges"])
+        print(data["vertices"])
         # output_graphviz_svg = pydot.graph_from_dot_data(dot_string)
         # graph = output_graphviz_svg[0]
         output_graphviz_svg = graph.create_svg()
