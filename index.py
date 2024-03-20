@@ -5,6 +5,15 @@ import pydot
 from flask_cors import CORS, cross_origin
 from flask import Flask, jsonify, request
 import LPP
+import distinctipy
+
+def RGBtoHEX(rgb: tuple[float, float, float]) -> str:
+    rgb = tuple([int(255*a) for a in rgb])
+    return '#%02x%02x%02x' % rgb
+    
+    
+for color in distinctipy.get_colors(15):
+    print(RGBtoHEX(color))
 
 app = Flask(__name__)
 cors = CORS(app)

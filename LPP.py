@@ -198,3 +198,10 @@ if __name__ == '__main__':
         lp.iterate(2)
     # for i in lp.tableau2:
     #     print(i)
+    print()
+    print(lp.Cb)
+    print()
+    print(lp.Base)
+    print()
+    print(lp.R)
+    print()

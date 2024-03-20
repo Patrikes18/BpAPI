@@ -11,13 +11,15 @@ class IndependentSet:
         self.strongedges = []
         self.temp = set()
         self.findStrongEdges()
+        print(dict(enumerate(self.strongvertices)))
+        print(self.vertices)
 
     def findStrongEdges(self):
         for edge in self.inputedges:
             # print(self.inputvertices[edge["vertices"][0]], edge["value"])
             if min(self.inputvertices[edge["vertices"][0]], self.inputvertices[edge["vertices"][1]]) / 2 <= edge["value"]:
                 self.strongedges.append(edge)
-                # print(self.strongedges)
+                print(self.strongedges)
         for edge in self.strongedges:
             index1 = self.getIndexOf(edge["vertices"][0])
             index2 = self.getIndexOf(edge["vertices"][1])
@@ -97,3 +99,5 @@ if __name__ == '__main__':
     I1.findIdependentSets()
     # I1.printAllIndependentSets()
     print(I1.findAllMaximalSets())
+    # for color in distinctipy.get_colors(15):
+    #     print(RGBtoHEX(color))
