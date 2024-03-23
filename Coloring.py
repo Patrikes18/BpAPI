@@ -34,32 +34,43 @@ class Coloring:
             self.R.pop(i)
             self.Cb.pop(i)
         
-        sums = [0] * len(self.vertices.vertices)
-        for vertexindex in range(len(self.vertices.vertices)):
-            sum = 0
-            for setindex in range(len(self.independentsets)):
-                if vertexindex in self.independentsets[setindex]:
-                    Rindex = self.Base.index(setindex)
-                    sum += self.R[Rindex]
-            sums[vertexindex] = sum
+        vertices = dict()
+        for i in self.vertices.vertices:
+            vertices[i] = []
 
-        self.weights = [0] * len(self.vertices.vertices)
-        for weighindex in range(len(sums)):
-            if sums[weighindex] > 0:
-                Rindex = self.Base.index(setindex)
-                tmp = (1 / sums[weighindex]) *self.R[Rindex]
-                self.weights[weighindex] = round(tmp, 3)
-            else:
-                self.weights[weighindex] = 0.0
+        for i in range(len(self.independentsets)):
+            for j in range(len(self.independentsets[i])):
+                vertices[self.independentsets[i][j]].append(self.colors[i])
+        
+        self.weights = []
+        for vertexindex in range(len(vertices)):
+            self.weights.append(self.computeWeightFor(vertices[vertexindex]))
+        # print(self.weights)
+
+    def computeWeightFor(self, vertex):
+        sum = 0
+        for i in vertex:
+            index = self.colors.index(i)
+            Rindex = self.Base.index(index)
+            sum += self.R[Rindex]
+        # print("R sum", sum)
+        val = []
+        for i in vertex:
+            index = self.colors.index(i)
+            Rindex = self.Base.index(index)
+            tmp = (1 / sum) * self.R[Rindex]
+            if tmp > 0.0:
+                val.append([round(tmp,3), i])
+        # print(val)
+        return val
 
     def createColorString(self):
         self.matchColorsToVertices()
-        arr = [[""] for _ in range(len(self.vertices.vertices))]
+        arr = [[] for _ in range(len(self.vertices.vertices))]
         # print(arr)
         for vertexindex in range(len(self.vertices.vertices)):
-            for colorindex in range(len(self.colors)):
-                if vertexindex in self.independentsets[colorindex]:
-                    arr[vertexindex].append(f"{self.colors[colorindex]};{self.weights[vertexindex]}")
+            for weightcolor in range(len(self.weights[vertexindex])):
+                arr[vertexindex].append(f"{self.weights[vertexindex][weightcolor][1]};{self.weights[vertexindex][weightcolor][0]}")
             self.colorstring[vertexindex] = ":".join(arr[vertexindex])
         # print(self.colorstring)
         Istrength = dict()
@@ -113,7 +124,6 @@ class Coloring:
                     missingcolors[i] = missingcolors[chosencolor[i]]
         return missingcolors
 
-
     def matchColorsToVertices(self):
         self.palette = dict()
         for i in self.vertices.vertices:
@@ -123,7 +133,3 @@ class Coloring:
                 if vertexindex in self.independentsets[setindex]:
                     self.palette[vertexindex].append(self.colors[setindex])
         # print(self.palette)
-
-
-
-

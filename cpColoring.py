@@ -16,11 +16,11 @@ class Coloring:
         self.strongvertices = {0: 'a', 1: 'b', 2: 'c', 3: 'd', 4: 'e', 5: 'f', }
         self.invertices = {'a': 0.4, 'b': 0.5, 'c': 0.8, 'd': 0.3, 'e': 0.7, 'f': 0.5, 'g': 0.8}
         VM({'a': 0.4, 'b': 0.5, 'c': 0.8, 'd': 0.3, 'e': 0.7, 'f': 0.5, 'g': 0.8})
-        # self.findWeakEdges()
-        # self.colors = []
-        # self.makeColors()
+        self.findWeakEdges()
+        self.colors = []
+        self.makeColors()
         # print(self.colors)
-        # self.colorVertices()
+        self.colorVertices()
         # self.computeWeakVertexColor()
 
     def makeColors(self):
@@ -107,7 +107,7 @@ class Coloring:
         return
 
     def colorString(self, vertexcolors) -> str:
-        # print(vertexcolors)
+        print("vertex colors", vertexcolors)
         sum = 0
         for i in vertexcolors:
             # print(i)
