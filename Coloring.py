@@ -29,6 +29,8 @@ class Coloring:
             if self.Base[i] >= len(self.independentsets):
                 remove.append(i)
         
+        remove.sort(reverse=True)
+
         for i in remove:
             self.Base.pop(i)
             self.R.pop(i)
