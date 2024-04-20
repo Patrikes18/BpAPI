@@ -13,7 +13,7 @@ class Coloring:
         self.colors = []
         self.colorstring = [""] * len(self.vertices.vertices)
         self.makeColors()
-        self.computeWeight()
+        self.computeWeight() #TODO možno odstrániť?
 
     def makeColors(self):
         for color in distinctipy.get_colors(len(self.independentsets)):

@@ -20,7 +20,7 @@ def home():
     if request.method == 'POST':
 
         data = request.get_json()
-        print(data)
+        # print(data)
         # data = {'vertices': {'a': 1, 'b': 1, 'c': 1, 'd': 1, 'e': 1}, 'edges': [{'vertices': ['a', 'b'], 'value': 1}, {'vertices': ['b', 'c'], 'value': 1}, {'vertices': ['c', 'd'], 'value': 1}, {'vertices': ['d', 'e'], 'value': 1}, {'vertices': ['e', 'a'], 'value': 1}]}
         # data = {'vertices': {'a': 0.4, 'b': 0.5, 'c': 0.8, 'd': 0.3, 'e': 0.7, 'f': 0.5, 'g': 0.8}, 'edges': [{'vertices': ['a', 'b'], 'value': 0.3}, {'vertices': ['a', 'f'], 'value': 0.3}, {'vertices': ['a', 'g'], 'value': 0.15}, {'vertices': ['b', 'c'], 'value': 0.3}, {'vertices': ['b', 'd'], 'value': 0.3}, {'vertices': ['e', 'd'], 'value': 0.25}, {'vertices': ['e', 'f'], 'value': 0.3}, {'vertices': ['b', 'g'], 'value': 0.2}, {'vertices': ['d', 'g'], 'value': 0.1}, {'vertices': ['e', 'g'], 'value': 0.3}]}
         vertices = VM.VertexModel(data["vertices"])
@@ -32,6 +32,7 @@ def home():
         independent.findStrongEdges()
         independent.findIdependentSets()
         independentsets = independent.findAllMaximalSets()
+        print(independentsets)
 
         linearprog = LP.LinearProgram(independentsets)
         linearprog.createTablePhase1()

@@ -24,6 +24,7 @@ class IndependentSet:
             return False
     
     def findIdependentSets(self, vertexnumber = 1):
+        #https://www.geeksforgeeks.org/maximal-independent-set-from-a-given-graph-using-backtracking/
         for i in range(vertexnumber, len(self.vertices.getAllStrength()) + 1):
             if (self.isSafeForIndependentSet(i - 1, self.tmpindependent)) :
                 self.tmpindependent.add(i - 1)

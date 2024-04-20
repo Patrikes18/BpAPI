@@ -45,6 +45,8 @@ class LinearProgram:
 
         self.changedBase = [False] * (self.verticesnum + 1)
         self.computeZ(1)
+        for i in self.tableau1:
+            print(i)
 
     def createTablePhase2(self):
         for i in range(len(self.Base)):
