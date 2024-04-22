@@ -90,6 +90,8 @@ class LinearProgram:
                 if rescol[i] < min and self.changedBase[i] == False:
                     minindexrow = i
                     min = rescol[i]
+            if minindexrow < 0:
+                return "Unbounded Solution"
             self.changedBase[minindexrow] = True
 
             pivot = self.tableau1[minindexrow][maxindexcol]
