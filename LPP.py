@@ -3,29 +3,31 @@ class LinearProgram:
     def __init__(self, independentsets):
         self.independentsets = independentsets
         self.verticesnum = -1
+        self.strongvertices = set()
 
     def createTablePhase1(self):
         for set in self.independentsets:
             for elem in set:
-                if elem > self.verticesnum:
-                    self.verticesnum = elem
-        
-        table = [[0] * len(self.independentsets) for _ in range(0, self.verticesnum + 1)]
+                self.strongvertices.add(elem)
+        self.verticesnum = len(self.strongvertices)
+        table = [[0] * len(self.independentsets) for _ in range(0, self.verticesnum)]
         li = [list(x) for x in self.independentsets]
         li.sort()
         tmp = 0
+        tmplist = list(self.strongvertices)
+        tmplist.sort()
         for set in li:
             for elem in set:
-                table[elem][tmp] = 1
+                table[tmplist.index(elem)][tmp] = 1
             tmp += 1
 
-        self.tableau1 = [[0] * (len(self.independentsets) + 2 * (self.verticesnum + 1)) for _ in range(0, self.verticesnum + 1)]
+        self.tableau1 = [[0] * (len(self.independentsets) + 2 * (self.verticesnum)) for _ in range(0, self.verticesnum)]
         self.Cj = [0] * len(self.tableau1[0])
         for row in range(len(self.tableau1)):
             for col in range(len(self.tableau1[row])):
                 if col < len(table[row]):
                     self.tableau1[row][col] = table[row][col]
-                elif col < (len(table[row]) + (self.verticesnum + 1)):
+                elif col < (len(table[row]) + (self.verticesnum)):
                     if col == row + self.verticesnum:
                         self.tableau1[row][col] = -1
                 else:
@@ -33,26 +35,26 @@ class LinearProgram:
                         self.tableau1[row][col] = 1
                         self.Cj[col] = 1
         
-        self.Cb = [1] * (self.verticesnum + 1)
-        self.R = [1] * (self.verticesnum + 1)
+        self.Cb = [1] * (self.verticesnum)
+        self.R = [1] * (self.verticesnum)
         self.Z = [0] * (len(self.tableau1[0]) + 1)
-        self.Base = [1] * (self.verticesnum + 1)
+        self.Base = [1] * (self.verticesnum)
         rowb = 0
         for col in range(len(self.Cj)):
             if self.Cj[col]:
                 self.Base[rowb] = col
                 rowb += 1
 
-        self.changedBase = [False] * (self.verticesnum + 1)
+        self.changedBase = [False] * (self.verticesnum)
         self.computeZ(1)
         for i in self.tableau1:
             print(i)
 
     def createTablePhase2(self):
         for i in range(len(self.Base)):
-            if self.Base[i] > (len(self.independentsets) + self.verticesnum + 1):
+            if self.Base[i] > (len(self.independentsets) + self.verticesnum):
                 return "no solution"
-        self.tableau2 = [[0] * (len(self.independentsets) + self.verticesnum + 1) for _ in range(0, self.verticesnum + 1)]
+        self.tableau2 = [[0] * (len(self.independentsets) + self.verticesnum) for _ in range(0, self.verticesnum)]
         
         for row in range(len(self.tableau2)):
             for col in range(len(self.tableau2[row])):
@@ -63,11 +65,11 @@ class LinearProgram:
             if i < len(self.independentsets):
                 self.Cj[i] = 1
 
-        self.Cb = [1] * (self.verticesnum + 1)
+        self.Cb = [1] * (self.verticesnum)
         for i in range(len(self.Cb)):
             self.Cb[i] = self.Cj[self.Base[i]]
 
-        self.changedBase = [False] * (self.verticesnum + 1)
+        self.changedBase = [False] * (self.verticesnum)
         self.computeZ(2)
 
     def iterate(self, num):
@@ -79,7 +81,7 @@ class LinearProgram:
                     maxindexcol = i
                     max = self.Z[i]
                     
-            rescol = [sys.maxsize] * (self.verticesnum + 1)
+            rescol = [sys.maxsize] * (self.verticesnum)
             for i in range(len(self.R)):
                 if self.tableau1[i][maxindexcol] > 0:
                     rescol[i] = self.R[i] / self.tableau1[i][maxindexcol]
@@ -119,7 +121,7 @@ class LinearProgram:
                     maxindexcol = i
                     max = self.Z[i]
 
-            rescol = [-1] * (self.verticesnum + 1)
+            rescol = [-1] * (self.verticesnum)
 
             for i in range(len(self.R)):
                 if self.tableau2[i][maxindexcol] > 0:
