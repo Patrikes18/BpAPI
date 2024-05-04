@@ -28,10 +28,10 @@ class LinearProgram:
                 if col < len(table[row]):
                     self.tableau1[row][col] = table[row][col]
                 elif col < (len(table[row]) + (self.verticesnum)):
-                    if col == row + self.verticesnum:
+                    if col == row + len(table[row]):
                         self.tableau1[row][col] = -1
                 else:
-                    if col == row + self.verticesnum * 2 + 1:
+                    if col == row + len(table[row]) + self.verticesnum:
                         self.tableau1[row][col] = 1
                         self.Cj[col] = 1
         

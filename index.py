@@ -39,6 +39,7 @@ def home():
                 independent.findStrongEdges()
                 independent.findIdependentSets()
                 independentsets = independent.findAllMaximalSets()
+                # print(independentsets)
             else:
                 graph = pydot.Dot("my_graph", graph_type="graph", bgcolor="transparent")
                 for vname, vvalue in data["vertices"].items():
