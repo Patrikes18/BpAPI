@@ -14,7 +14,7 @@ import LPP as LP
 import Coloring as CLR
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/foo": {"origins": "*"}})
+cors = CORS(app, resources={r"/": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/", methods=['POST'])
