@@ -31,6 +31,7 @@ def home():
             
             # Inicializácia výstupného grafu.
             graph = pydot.Dot("fuzzy_graf", graph_type="graph", bgcolor="transparent")
+            independentsets = list()
 
             if len(edges) > 0: # Graf neobsahuje iba vrcholy.
                 independent = IS.IndependentSet(vertices, edges)
@@ -40,7 +41,9 @@ def home():
             else: # Graf obsahuje iba vrcholy.
                 for vname, vvalue in data["vertices"].items():
                     graph.add_node(pydot.Node(vname, shape="circle",style="filled",fillcolor="green", label="", xlabel=f"({vname}, {vvalue})"))
-
+                output_graphviz_svg = graph.create_svg()
+                return output_graphviz_svg, 200
+            
             if len(independentsets) == 1 and frozenset() in independentsets: # Graf má iba slabo susediace vrcholy.
                 for vname, vvalue in data["vertices"].items():
                     graph.add_node(pydot.Node(vname, shape="circle",style="filled",fillcolor="green", label="", xlabel=f"({vname}, {vvalue})"))
@@ -75,9 +78,9 @@ def home():
 
                 # Vyfarbovanie grafu.
                 for vname, vvalue in data["vertices"].items():
-                    if not ";" in colors[vertices.getIndexOf(vname)] or ";1" in colors[vertices.getIndexOf(vname)]:
+                    if not ";" in colors[vertices.getIndexOf(vname)] or ";1" in colors[vertices.getIndexOf(vname)]: # Vrchol je farbený jednou farbou.
                         graph.add_node(pydot.Node(vname, shape="circle",style="filled",fillcolor=f"{colors[vertices.getIndexOf(vname)]}", label="", xlabel=f"({vname}, {vvalue})"))
-                    else:
+                    else: # Vrchol je farbený viacerými farbami.
                         graph.add_node(pydot.Node(vname, shape="circle",style="wedged",fillcolor=f"{colors[vertices.getIndexOf(vname)]}", label="", xlabel=f"({vname}, {vvalue})"))
 
                 for edge in data["edges"]:

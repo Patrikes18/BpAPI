@@ -88,7 +88,7 @@ class VertexModel:
             Názov vrcholu.
         """
         return self.vertices[index]
-            
+
     def getValueWithIndex(self, ver : int) -> float:
         """
             Metóda, ktorá vracia váhu na základe indexu vrcholu.

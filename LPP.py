@@ -146,6 +146,7 @@ class LinearProgram:
                 Fáza, v ktorej iterujeme.
             
             Návratové hodnoty:
+            ------------------
             0 - Iterovanie prebehlo bez problémov.
             1 - Iterovanie nemá riešenie.
         """
