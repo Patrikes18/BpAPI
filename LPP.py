@@ -93,7 +93,7 @@ class LinearProgram:
         
         self.Cb = [1] * (self.verticesnum)
         self.R = [1] * (self.verticesnum)
-        self.Z = [0] * (len(self.tableau1[0]) + 1) # O jedno dlhšie kvôli stĺcu R.
+        self.Z = [0] * (len(self.tableau1[0]) + 1) # O jedno dlhšie kvôli stĺpcu R.
         self.Base = [1] * (self.verticesnum)
         rowb = 0
         for col in range(len(self.Cj)): # Vloženie koeficientov do stĺpca Báza.
@@ -107,7 +107,7 @@ class LinearProgram:
     def createTablePhase2(self) -> int:
         """
             Metóda vytvorí inicializačnú tabuľku pre druhú fázu.
-             
+
             Návratové hodnoty:
             ------------------
             0 - Inicializovanie prebehlo bez problémov.

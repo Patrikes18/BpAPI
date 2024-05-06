@@ -184,7 +184,7 @@ class Coloring:
                 missingcolors[i] = self.colorstring[i]
             elif Istrength[i][0][1] == -1: # Vrchol nemá žiadnu hranu s ostatnými vrcholmi.
                 missingcolors[i] = self.colors[0]
-            else: # Slabosusediace vrcholy.
+            else: # Slabo susediace vrcholy.
                 missingcolors[i] = ""
 
         chosencolor = dict()
